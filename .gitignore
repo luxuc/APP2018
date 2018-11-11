@@ -2,7 +2,7 @@
 .gradle/
 build/
 out/
-gradlelew
-gradlelew.bat
+gradlew
+gradlew.bat
 *.iml
 gradle/

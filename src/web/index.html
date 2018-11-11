@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RECEPEE</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    </head>
+    <body>
+        <div class="ui three item menu">
+            <a class="active item" href="index.html">Log-in</a>
+            <a class="item" href="signin.html">Sign-in</a>
+            <a class="item" href="aboutUs.html">About us</a>
+        </div>
+        <div class="ui four column centered grid">
+            <div class="column">
+                <h2 class="ui center aligned icon header">
+                    <i class="circular lightbulb outline icon"></i>
+                    ReCePee
+                </h2>
+
+                <form class="ui form login-form" action="/users/login" method="post">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="field">
+                    </div>
+                    <button class="ui fluid teal button" type="submit">Submit</button>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="login.js"></script>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>RECEPEE</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    </head>
+    <body>
+        <div class="ui three item menu">
+            <a class="item" href="index.html">Log-in</a>
+            <a class="active item" href="signin.html">Sign-in</a>
+            <a class="item" href="aboutUs.html">About us</a>
+        </div>
+        <div class="ui four column centered grid">
+            <div class="column">
+                <h2 class="ui center aligned icon header">
+                    <i class="circular lightbulb outline icon"></i>
+                    ReCePee
+                </h2>
+
+                <form class="ui form signin-form">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="text" name="email" placeholder="Email">
+                    </div>
+                    <div class="field">
+                        <label>Preferred Cuisine</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="preferedCuisine">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">preferred Cuisine</div>
+                            <div class="menu">
+                                <div class="item" data-value="American">American</div>
+                                <div class="item" data-value="Italian">Italian</div>
+                                <div class="item" data-value="Seafood">Seafood</div>
+                                <div class="item" data-value="Mexican">Mexican</div>
+                                <div class="item" data-value="French">French</div>
+                                <div class="item" data-value="Indian">Indian</div>
+                                <div class="item" data-value="Thai">Thai</div>
+                                <div class="item" data-value="Chinese">Chinese</div>
+                                <div class="item" data-value="Spanish">Spanish</div>
+                                <div class="item" data-value="Greek">Greek</div>
+                                <div class="item" data-value="Japanese">Japanese</div>
+                                <div class="item" data-value="Vegan">Vegan</div>
+                                <div class="item" data-value="Korean">Korean</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="field">
+                        <label>Confirm Password</label>
+                        <input type="password" name="confirm-password" placeholder="Confirm Password">
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox">
+                            <input type="checkbox" tabindex="0" class="hidden" name="terms">
+                            <label>I agree to the Terms and Conditions</label>
+                        </div>
+                    </div>
+                    <button class="ui fluid teal button" type="button" onclick="submitAsJson()">Submit</button>
+                    <div class="ui error message"></div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="login.js"></script>
+</html>
