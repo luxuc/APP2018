@@ -8,25 +8,31 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.List;
 
 public class Client {
     public static void main(String[] argv) {
+        Client client = new Client();
+
         doDeleteAllNotification();
         doDeleteAllUser();
-//        doUserPost("Lee","Sin", "123 lake", "100",
-//                "Korean","123@361.com","123456");
-//        doUserPost("Master","Yi", "234 quad", "100",
-//                "Chinese","yi@361.com","123456");
-//        doUserPost("Ryze","Garen", "123 edison", "0",
-//                "Mexican","RGaren@361.com","123456");
+        doUserPost("LeeSin", "100",
+                "Korean","123@361.com","123456");
+        doUserPost("Master Yi","100", "Chinese", "yi@361.com",
+                "123456");
+        doUserPost("Ryze Garen","0", "123 edison", "RGaren@361.com",
+                "Mexican123456");
         doNotificationPost("001", "020", "2018-08-08", "This is test1");
         doNotificationPost("002", "020", "2018-08-08", "This is test2");
         doNotificationPost("003", "020", "2018-08-08", "This is test3");
         doGetAllNotification();
     }
 
-    public static void doUserPost(String firstname, String lastname, String address, String userScore,
+    public static void doUserPost(String username, String userScore,
                                   String preferedCuisine, String email, String password){
         try {
             URL url = new URL("http://localhost:8080/api/users");
@@ -39,9 +45,7 @@ public class Client {
             con.setDoOutput(true);
 
             JSONObject notification = new JSONObject();
-            notification.put("firstname", firstname);
-            notification.put("lastname", lastname);
-            notification.put("address", address);
+            notification.put("username", username);
             notification.put("userScore", userScore);
             notification.put("preferedCuisine", preferedCuisine);
             notification.put("email", email);
