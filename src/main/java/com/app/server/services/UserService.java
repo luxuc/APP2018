@@ -40,8 +40,8 @@ public class UserService {
         try {
             JSONObject json = null;
             json = new JSONObject(ow.writeValueAsString(request));
-            User user = convertJsonToNotification(json);
-            Document doc = convertNotificationToDocument(user);
+            User user = convertJsonToUser(json);
+            Document doc = convertUserToDocument(user);
             usersCollection.insertOne(doc);
             ObjectId id = (ObjectId)doc.get( "_id" );
             user.setUserID(id.toString());
@@ -138,7 +138,7 @@ public class UserService {
         return notification;
     }
 
-    private User convertJsonToNotification(JSONObject json){
+    private User convertJsonToUser(JSONObject json){
         User user = new User( json.getString("username"),
                 "0",
                 json.getString("preferedCuisine"),
@@ -148,7 +148,7 @@ public class UserService {
         return user;
     }
 
-    private Document convertNotificationToDocument(User user){
+    private Document convertUserToDocument(User user){
         Document doc = new Document("username", user.getUsername())
                 .append("userScore", user.getUserScore())
                 .append("preferedCuisine", user.getPreferedCuisine())
