@@ -1,13 +1,13 @@
 package com.app.server.models;
 
 public class Recommendation {
-    String RecommendationID = null;
+    String recommendationID = null;
     String userID;
     String recipeID;
     String time;
 
     public Recommendation(String recommendationID) {
-        RecommendationID = recommendationID;
+        recommendationID = recommendationID;
     }
 
     public Recommendation(String userID, String recipeID, String time) {
@@ -17,11 +17,11 @@ public class Recommendation {
     }
 
     public String getRecommendationID() {
-        return RecommendationID;
+        return recommendationID;
     }
 
     public void setRecommendationID(String recommendationID) {
-        RecommendationID = recommendationID;
+        this.recommendationID = recommendationID;
     }
 
     public String getUserID() {
