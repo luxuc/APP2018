@@ -19,7 +19,6 @@ public class Client {
         Client client = new Client();
 
         doDeleteAllNotification();
-
 //        doDeleteAllUser();
 //        doUserPost("Lee","Sin", "123 lake", "100",
 //                "Korean","123@361.com","123456");
