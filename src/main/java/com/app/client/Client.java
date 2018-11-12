@@ -12,38 +12,24 @@ import java.util.List;
 
 public class Client {
     public static void main(String[] argv) {
-//        doDeleteAll("http://localhost:8080/api/recipes");
-//        ArrayList<String> comments = new ArrayList<>();
-//        ArrayList<String> steps = new ArrayList<>();
-//        steps.add("Boil the water");
-//        steps.add("add ingredients");
-//        ArrayList<String> ingredients = new ArrayList<>();
-//        ingredients.add("water");
-//        ingredients.add("potato");
-//        doPostRecipe("recipe one", "123", "Jay Young", steps, ingredients, 3.5, 7, 2, comments);
-//        ArrayList<String> steps2 = new ArrayList<>();
-//        steps2.add("Put all ingredients at once");
-//        steps2.add("Boil for ten hours");
-//        ArrayList<String> ingredients2 = new ArrayList<>();
-//        ingredients2.add("Blue Fin Tuna");
-//        ingredients2.add("Kobe Beef");
-//        ingredients2.add("Free range chicken Thigh");
-//        ingredients2.add("Secret Soup Base");
-//        doPostRecipe("big feast", "0593", "CHEF Goon", steps2, ingredients2, 5.0, 5, 1, comments);
-//        doGetAll("http://localhost:8080/api/recipes");
-
-        doDeleteAll("http://localhost:8080/api/recipes/5bc6d2a159035cad2f645c29/comments");
-        doPostComment("5bc6d2a159035cad2f645c29", "userIdPlaceHolder", 5, "Nice Recipe! Will try it!", "1:49 11/17");
-        doPostComment("5bc6d2a159035cad2f645c29", "userIdPlaceHolder123", 5, "Looks Good!", "1:49 11/17");
-        doGetAll("http://localhost:8080/api/recipes/5bc6d2a159035cad2f645c29/comments");
+        doDeleteAllNotification();
+        doDeleteAllUser();
+//        doUserPost("Lee","Sin", "123 lake", "100",
+//                "Korean","123@361.com","123456");
+//        doUserPost("Master","Yi", "234 quad", "100",
+//                "Chinese","yi@361.com","123456");
+//        doUserPost("Ryze","Garen", "123 edison", "0",
+//                "Mexican","RGaren@361.com","123456");
+        doNotificationPost("001", "020", "2018-08-08", "This is test1");
+        doNotificationPost("002", "020", "2018-08-08", "This is test2");
+        doNotificationPost("003", "020", "2018-08-08", "This is test3");
+        doGetAllNotification();
     }
 
-
-
-    public static void doPost(String firstName,String middleName, String lastName, String address1, String address2,
-                              String city, String state, String country, String postalCode) {
+    public static void doUserPost(String firstname, String lastname, String address, String userScore,
+                                  String preferedCuisine, String email, String password){
         try {
-            URL url = new URL("http://localhost:8080/api/drivers");
+            URL url = new URL("http://localhost:8080/api/users");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
@@ -52,21 +38,18 @@ public class Client {
 
             con.setDoOutput(true);
 
-            JSONObject driver = new JSONObject();
-            driver.put("firstName",firstName);
-            driver.put("middleName",middleName);
-            driver.put("lastName",lastName);
-            driver.put("address1",address1);
-            driver.put("address2",address2);
-            driver.put("city",city);
-            driver.put("state",state);
-            driver.put("country",country);
-            driver.put("postalCode",postalCode);
+            JSONObject notification = new JSONObject();
+            notification.put("firstname", firstname);
+            notification.put("lastname", lastname);
+            notification.put("address", address);
+            notification.put("userScore", userScore);
+            notification.put("preferedCuisine", preferedCuisine);
+            notification.put("email", email);
+            notification.put("password", password);
 
             OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
-            wr.write(driver.toString());
+            wr.write(notification.toString());
             wr.flush();
-
 
             int status = con.getResponseCode();
             System.out.println(status);
@@ -74,24 +57,20 @@ public class Client {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuffer stringBuffer = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
+                stringBuffer.append(inputLine);
             }
             in.close();
-            System.out.println(content);
             con.disconnect();
-        }
-        catch(Exception e) {
+        }catch(Exception e) {
             e.printStackTrace();
-
         }
-
     }
 
-    public static void doPostRecipe(String headline, String userId, String author, List<String> steps, List<String> ingredients, double rating, int totalRating, int numOfRatings, List<String> comments){
+    public static void doNotificationPost(String userID, String recipeID, String time, String content){
         try {
-            URL url = new URL("http://localhost:8080/api/recipes");
+            URL url = new URL("http://localhost:8080/api/notifications");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Content-Type", "application/json");
@@ -100,88 +79,37 @@ public class Client {
 
             con.setDoOutput(true);
 
-            JSONObject recipe = new JSONObject();
-            recipe.put("headline", headline);
-            recipe.put("userId", userId);
-            recipe.put("author", author);
-            recipe.put("steps", steps);
-            recipe.put("ingredients", ingredients);
-            recipe.put("rating", rating);
-            recipe.put("totalRating", totalRating);
-            recipe.put("numOfRatings",numOfRatings);
-            recipe.put("comments", comments);
+            JSONObject notification = new JSONObject();
+            notification.put("userID", userID);
+            notification.put("recipeID", recipeID);
+            notification.put("time", time);
+            notification.put("content", content);
 
             OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
-            wr.write(recipe.toString());
-            wr.flush();
-
-
-            int status = con.getResponseCode();
-            System.out.println(status);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer content = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
-            System.out.println(content);
-            con.disconnect();
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-
-        }
-
-    }
-
-    public static void doPostComment(String recipeId, String userId, Integer rating, String comment, String time){
-        try {
-            URL url = new URL("http://localhost:8080/api/recipes/" + recipeId + "/comments");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoInput(true);
-
-            con.setDoOutput(true);
-
-            JSONObject oneComment = new JSONObject();
-            oneComment.put("recipeId", recipeId);
-            oneComment.put("userId", userId);
-            oneComment.put("rating", rating);
-            oneComment.put("comment", comment);
-            oneComment.put("time", time);
-
-            OutputStreamWriter wr= new OutputStreamWriter(con.getOutputStream());
-            wr.write(oneComment.toString());
+            wr.write(notification.toString());
             wr.flush();
 
             int status = con.getResponseCode();
             System.out.println(status);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuffer stringBuffer = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
+                stringBuffer.append(inputLine);
             }
             in.close();
-            System.out.println(content);
             con.disconnect();
-        }
-        catch(Exception e) {
+        }catch(Exception e) {
             e.printStackTrace();
-
         }
-
     }
 
 
-    public static void doGetAll(String targetUrl) {
+    public static void doGetAllNotification() {
         try {
-            URL url = new URL(targetUrl);
+            URL url = new URL("http://localhost:8080/api/notifications");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             int status = con.getResponseCode();
@@ -203,9 +131,9 @@ public class Client {
         }
     }
 
-    public static void doDeleteAll(String targetUrl) {
+    public static void doDeleteAllNotification() {
         try {
-            URL url = new URL(targetUrl);
+            URL url = new URL("http://localhost:8080/api/notifications");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("DELETE");
             int status = con.getResponseCode();
@@ -225,12 +153,29 @@ public class Client {
             e.printStackTrace();
 
         }
-
     }
 
+    public static void doDeleteAllUser() {
+        try {
+            URL url = new URL("http://localhost:8080/api/users");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("DELETE");
+            int status = con.getResponseCode();
+            System.out.println(status);
 
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            System.out.println(content);
+            con.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
 
-
-
-
+        }
+    }
 }
