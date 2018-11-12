@@ -19,16 +19,17 @@ public class Client {
         Client client = new Client();
 
         doDeleteAllNotification();
-        doDeleteAllUser();
-        doUserPost("LeeSin", "100",
-                "Korean","123@361.com","123456");
-        doUserPost("Master Yi","100", "Chinese", "yi@361.com",
-                "123456");
-        doUserPost("Ryze Garen","0", "123 edison", "RGaren@361.com",
-                "Mexican123456");
-        doNotificationPost("001", "020", "2018-08-08", "This is test1");
-        doNotificationPost("002", "020", "2018-08-08", "This is test2");
-        doNotificationPost("003", "020", "2018-08-08", "This is test3");
+
+//        doDeleteAllUser();
+//        doUserPost("Lee","Sin", "123 lake", "100",
+//                "Korean","123@361.com","123456");
+//        doUserPost("Master","Yi", "234 quad", "100",
+//                "Chinese","yi@361.com","123456");
+//        doUserPost("Ryze","Garen", "123 edison", "0",
+//                "Mexican","RGaren@361.com","123456");
+        doNotificationPost("5be766acaf8e6c43ed64489b", "020", "2018-08-08", "This is test1");
+        doNotificationPost("5be766acaf8e6c43ed64489b", "020", "2018-08-08", "This is test2");
+        doNotificationPost("5be766acaf8e6c43ed64489b", "020", "2018-08-08", "This is test3");
         doGetAllNotification();
     }
 

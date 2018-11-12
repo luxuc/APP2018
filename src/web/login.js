@@ -113,7 +113,6 @@ function submitAsJson() {
     for (var i = 0; i < formArray.length; i++){
         returnArray[formArray[i]['name']] = formArray[i]['value'];
     }
-    console.log(returnArray)
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -121,8 +120,28 @@ function submitAsJson() {
         data: JSON.stringify(returnArray),
         success: success,
         dataType: 'json'
-    });
+    })
     function success() {
         console.log("submitted!")
     }
+}
+
+function loginAsJson() {
+    var formArray = $('form').serializeArray()
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++){
+        returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: '/api/users/login',
+        data: JSON.stringify(returnArray),
+        dataType: 'json'
+    }).done(function(data){
+        var tokenCookie = 'auth=' + data.token
+        document.cookie = tokenCookie
+        console.log(login)
+        // TODO jump to homepage
+    })
 }
