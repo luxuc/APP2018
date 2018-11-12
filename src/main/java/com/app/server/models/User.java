@@ -24,7 +24,7 @@ public class User {
         this.userScore = userScore;
         this.preferedCuisine = preferedCuisine;
         this.email = email;
-        this.password = password;
+        this.password = setPassword(password);
     }
 
     public String getUserID() {
@@ -67,7 +67,7 @@ public class User {
         return  password;
     }
 
-    public void setPassword(String password) {
+    public String setPassword(String password) {
         try {
             byte[] salt = getSalt();
             password = getSecurePassword(password, salt);
@@ -75,6 +75,7 @@ public class User {
         catch (Exception ex){
             ex.printStackTrace();
         }
+        return password;
     }
 
     private static String getSecurePassword(String passwordToHash, byte[] salt)
