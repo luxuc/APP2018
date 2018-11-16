@@ -18,8 +18,7 @@ public class User {
         this.userID = userID;
     }
 
-    public User(String username, String userScore,
-                String preferedCuisine, String email, String password) {
+    public User(String username, String userScore, String preferedCuisine, String email, String password) {
         this.username = username;
         this.userScore = userScore;
         this.preferedCuisine = preferedCuisine;
@@ -69,8 +68,7 @@ public class User {
 
     public String setPassword(String password) {
         try {
-            byte[] salt = getSalt();
-            password = getSecurePassword(password, salt);
+            password = getSecurePassword(password);
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -78,14 +76,13 @@ public class User {
         return password;
     }
 
-    private static String getSecurePassword(String passwordToHash, byte[] salt)
+    private static String getSecurePassword(String passwordToHash)
     {
         String generatedPassword = null;
         try {
             // Create MessageDigest instance for MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
             //Add password bytes to digest
-            md.update(salt);
             //Get the hash's bytes
             byte[] bytes = md.digest(passwordToHash.getBytes());
             //This bytes[] has bytes in decimal format;
@@ -104,16 +101,4 @@ public class User {
         return generatedPassword;
     }
 
-    //Add salt
-    private static byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException
-    {
-        //Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
-        //Create array for salt
-        byte[] salt = new byte[16];
-        //Get a random salt
-        sr.nextBytes(salt);
-        //return salt
-        return salt;
-    }
 }
